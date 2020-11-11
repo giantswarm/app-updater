@@ -1,7 +1,9 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: app-updater
+  name: {{ template "app-updater.fullname" . }}
+  labels:
+    app:  {{ template "app-updater.fullname" . }}
 spec:
   allowPrivilegeEscalation: true
   fsGroup:

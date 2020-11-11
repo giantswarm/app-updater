@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: app-updater
+    name: {{ template "app-updater.fullname" . }}
+    labels:
+      app:  {{ template "app-updater.fullname" . }}
 data:
   script.sh: |
     export KUBE_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)

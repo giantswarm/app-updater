@@ -1,11 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: {{ template "app-updater.fullname" . }}
   labels:
-    app: app-updater
-    giantswarm.io/service-type: managed
-  name: app-updater
-  namespace: default
+    app:  {{ template "app-updater.fullname" . }}
 spec:
   egress:
   - {}

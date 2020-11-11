@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: app-updater
+  name: {{ template "app-updater.fullname" . }}
   labels:
-    giantswarm.io/service-type: "managed"
-    app: app-updater
+    app:  {{ template "app-updater.fullname" . }}
   
