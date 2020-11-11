@@ -17,8 +17,8 @@ data:
     echo "- Version running: " $DSOURCE
     echo "- Last version released: " $DTARGET
 
-    if [[ $DSOURCE != $DTARGET ]]
-    then
+    rx='^([0-9]+\.){0,2}(\*|[0-9]+)$'
+    if [[ $DSOURCE != $DTARGET ]] && [[ $DTARGET =~ $rx ]]; then
         echo "App does need to be upgraded, proceeding to update App CR version field"
         curl -sSk -o /dev/null -w "%{http_code} " -H "Authorization: Bearer $KUBE_TOKEN" --data "[{\"op\":\"replace\",\"path\":\"/spec/version\",\"value\":\"$DTARGET\"}]" -H "Content-Type: application/json-patch+json" -X PATCH https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/apis/application.giantswarm.io/v1alpha1/namespaces/{{ .Values.clusterID }}/apps/$APP_NAME 
     else
