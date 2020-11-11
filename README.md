@@ -1,9 +1,8 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/{APP-NAME}-app.svg?style=shield)](https://circleci.com/gh/giantswarm/{APP-NAME}-app)
+[![CircleCI](https://circleci.com/gh/giantswarm/{APP-NAME}-app.svg?style=shield)](https://circleci.com/gh/giantswarm/app-updater-app)
 
-# {APP-NAME}-app chart
+# app-updater-app chart
 
-Giant Swarm offers a {APP-NAME} Managed App which can be installed in tenant clusters.
-Here we define the {APP-NAME} chart with its templates and default configuration.
+Giant Swarm offers a App Updater which can be installed in Control Plane clusters to update App Platform apps when there is a new version.
 
 ## Credit
 

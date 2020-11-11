@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app: app-updater
+    giantswarm.io/service-type: managed
+  name: app-updater
+  namespace: default
+spec:
+  egress:
+  - {}
+  podSelector:
+    matchLabels:
+      app: app-updater
+  policyTypes:
+  - Ingress
+  - Egress

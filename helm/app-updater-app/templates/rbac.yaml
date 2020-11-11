@@ -1,0 +1,41 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: app-updater-psp-user
+  labels:
+    app: app-updater
+    giantswarm.io/service-type: "managed"
+rules:
+- apiGroups:
+  - extensions
+  resources:
+  - podsecuritypolicies
+  resourceNames:
+  - app-updater
+  verbs:
+  - use
+- apiGroups:
+  - application.giantswarm.io
+  resources:
+  - apps
+  resourceNames:
+  - docs-app
+  verbs:
+  - get
+  - patch
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: app-updater-psp
+  labels:
+    app: app-updater
+    giantswarm.io/service-type: "managed"
+subjects:
+- kind: ServiceAccount
+  name: app-updater
+  namespace: {{ .Values.clusterID }}
+roleRef:
+  kind: ClusterRole
+  name: app-updater-psp-user
+  apiGroup: rbac.authorization.k8s.io

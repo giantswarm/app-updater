@@ -1,0 +1,4 @@
+
+app_repo: docs
+app_name: docs-app"
+schedule: "*/30 * * * *"
