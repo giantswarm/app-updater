@@ -5,7 +5,7 @@ metadata:
   labels:
     app:  {{ template "app-updater.fullname" . }}
 spec:
-  allowPrivilegeEscalation: true
+  allowPrivilegeEscalation: false
   fsGroup:
     rule: RunAsAny
   runAsUser:
@@ -15,9 +15,6 @@ spec:
   supplementalGroups:
     rule: RunAsAny
   volumes:
-  - emptyDir
   - secret
   - downwardAPI
   - configMap
-  - persistentVolumeClaim
-  - projected

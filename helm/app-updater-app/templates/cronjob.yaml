@@ -5,7 +5,7 @@ metadata:
   labels:
     app:  {{ template "app-updater.fullname" . }}
 spec:
-  schedule: {{ .Values.schedule }}
+  schedule: {{ .Values.schedule | quote }}
   jobTemplate:
     spec:
       backoffLimit: 3
