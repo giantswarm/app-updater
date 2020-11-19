@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ template "app-updater.fullname" . }}
+  labels:
+    app:  {{ template "app-updater.fullname" . }}
+spec:
+  egress:
+  - {}
+  podSelector:
+    matchLabels:
+      app: app-updater
+  policyTypes:
+  - Ingress
+  - Egress

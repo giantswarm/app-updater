@@ -1,0 +1,40 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ template "app-updater.fullname" . }}
+  labels:
+    app:  {{ template "app-updater.fullname" . }}
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 600
+      template:
+        spec:
+          serviceAccount: app-updater
+          restartPolicy: Never
+          containers:
+          - image: teemow/debug
+            name: app-updater
+            command: ["/bin/sh", "/opt/script/script.sh"]
+            env:
+            - name: APP_REPO
+              value: {{ .Values.app_repo }}
+            - name: APP_NAME
+              value: {{ .Values.app_name }}
+            volumeMounts:
+            - mountPath: /opt/script
+              name: app-updater
+              readOnly: false
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "50m"
+              limits:
+                memory: "64Mi"
+                cpu: "250m"
+          volumes:
+          - name: app-updater
+            configMap:
+              name: app-updater

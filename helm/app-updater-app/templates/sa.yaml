@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ template "app-updater.fullname" . }}
+  labels:
+    app:  {{ template "app-updater.fullname" . }}
+  
