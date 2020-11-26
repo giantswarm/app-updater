@@ -15,9 +15,9 @@ spec:
           serviceAccount: app-updater
           restartPolicy: Never
           containers:
-          - image: teemow/debug
+          - image: quay.io/giantswarm/debug:update
             name: app-updater
-            command: ["/bin/sh", "/opt/script/script.sh"]
+            command: ["/bin/bash", "/opt/script/script.sh"]
             env:
             - name: APP_REPO
               value: {{ .Values.app_repo }}
