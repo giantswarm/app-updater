@@ -10,7 +10,7 @@ data:
 
     export DSOURCE=$(curl -sSk -H "Authorization: Bearer $KUBE_TOKEN"  https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/apis/application.giantswarm.io/v1alpha1/namespaces/{{ .Values.clusterID }}/apps/$APP_NAME | jq .spec.version -r)
 
-    export DTARGET=$(curl --silent "https://api.github.com/repos/$APP_REPO/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/^v//')
+    export DTARGET=$(curl --silent "https://api.github.com/repos/$APP_REPO/releases/latest"  | jq -r .tag_name | sed 's/^v//')
 
     echo "- Repo: " $APP_REPO
     echo "- App: " $APP_NAME
