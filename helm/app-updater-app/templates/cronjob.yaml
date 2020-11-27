@@ -15,7 +15,7 @@ spec:
           serviceAccount: app-updater
           restartPolicy: Never
           containers:
-          - image: quay.io/giantswarm/app-updater:{{ .Values.image.tag }}
+          - image: "quay.io/giantswarm/app-updater:{{ .Values.image.tag }}"
             name: app-updater
             command: ["/opt/script/script.sh"]
             env:
