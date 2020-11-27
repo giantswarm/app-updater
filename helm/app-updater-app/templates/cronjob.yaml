@@ -17,7 +17,7 @@ spec:
           containers:
           - image: "quay.io/giantswarm/app-updater:{{ .Values.image.version }}"
             name: app-updater
-            command: /opt/script/script.sh
+            command: ["/opt/script/script.sh"]
             env:
             - name: APP_REPO
               value: {{ .Values.app_repo }}
