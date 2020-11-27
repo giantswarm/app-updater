@@ -6,6 +6,8 @@ metadata:
       app:  {{ template "app-updater.fullname" . }}
 data:
   script.sh: |
+    #!/bin/bash
+    
     export KUBE_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 
     export DSOURCE=$(curl -sSk -H "Authorization: Bearer $KUBE_TOKEN"  https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/apis/application.giantswarm.io/v1alpha1/namespaces/{{ .Values.clusterID }}/apps/$APP_NAME | jq .spec.version -r)
