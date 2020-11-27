@@ -2,3 +2,6 @@ app_repo: "giantswarm/docs"
 app_name: docs-app
 schedule: "*/30 * * * *"
 clusterID: c68pn
+image:
+  version: "[[.Version]]"
+  sha: "[[.SHA]]"
