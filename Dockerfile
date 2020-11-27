@@ -4,4 +4,4 @@ RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposi
 
 RUN apk update && apk add --no-cache bash curl jq
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT /bin/bash
