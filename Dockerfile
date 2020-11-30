@@ -8,4 +8,4 @@ WORKDIR /opt/script
 
 RUN chmod +x /opt/script
 
-ENTRYPOINT /bin/bash
+ENTRYPOINT ["/bin/bash"]
