@@ -1,6 +1,6 @@
 app_repo: "giantswarm/docs"
 app_name: docs-app
-schedule: "*/30 * * * *"
+schedule: 7,17,27,37,47,57 7-18 * * MON-FRI
 clusterID: c68pn
 image:
   version: "[[.Version]]"
