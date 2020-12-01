@@ -1,4 +1,5 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/{APP-NAME}-app.svg?style=shield)](https://circleci.com/gh/giantswarm/app-updater-app)
+[![Docker Repository on Quay](https://quay.io/repository/giantswarm/app-updater/status "Docker Repository on Quay")](https://quay.io/repository/giantswarm/app-updater)
+[![CircleCI](https://circleci.com/gh/giantswarm/app-updater.svg?style=shield)](https://circleci.com/gh/giantswarm/app-updater)
 
 # app-updater-app chart
 
@@ -8,11 +9,7 @@ It uses a simple bash script in a `ConfigMap` that pulls from Github the last re
 
 There are two parameters to pass when the App Updater is going to be installed:
 
-```
-app_repo: "giantswarm/docs"
+```yaml
+app_repo: giantswarm/docs
 app_name: docs-app
 ```
-
-## Credit
-
-* {APP HELM REPOSITORY}

@@ -1,17 +1,32 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@0.16.0
+  architect: giantswarm/architect@0.17.1
 
 workflows:
   package-and-push-chart-on-tag:
     jobs:
+
+      - architect/push-to-docker:
+          context: architect
+          name: push-app-updater-to-quay
+          image: quay.io/giantswarm/app-updater
+          username_envar: QUAY_USERNAME
+          password_envar: QUAY_PASSWORD
+          filters:
+            # Trigger job also on git tag.
+            tags:
+              only: /^v.*/
+
       - architect/push-to-app-catalog:
           context: "architect"
           name: "package and push app-updater-app chart"
           app_catalog: "giantswarm-playground-catalog"
           app_catalog_test: "giantswarm-playground-test-catalog"
           chart: "app-updater-app"
+          requires:
+            - push-app-updater-to-quay
           # Trigger job on git tag.
           filters:
             tags:
               only: /^v.*/
+
