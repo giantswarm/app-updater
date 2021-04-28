@@ -9,7 +9,7 @@ spec:
   - {}
   podSelector:
     matchLabels:
-      app: app-updater
+      app: {{ template "app-updater.fullname" . }}
   policyTypes:
   - Ingress
   - Egress

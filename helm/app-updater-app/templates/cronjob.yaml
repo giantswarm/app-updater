@@ -12,11 +12,11 @@ spec:
       ttlSecondsAfterFinished: 600
       template:
         spec:
-          serviceAccount: app-updater
+          serviceAccount: {{ template "app-updater.fullname" . }}
           restartPolicy: Never
           containers:
           - image: "quay.io/giantswarm/app-updater:{{ .Values.image.version }}"
-            name: app-updater
+            name: {{ template "app-updater.fullname" . }}
             args: ["/opt/script/script.sh"]
             env:
             - name: APP_REPO
@@ -25,7 +25,7 @@ spec:
               value: {{ .Values.app_name }}
             volumeMounts:
             - mountPath: /opt/script
-              name: app-updater
+              name: {{ template "app-updater.fullname" . }}
               readOnly: false
             resources:
               requests:
@@ -35,6 +35,6 @@ spec:
                 memory: "64Mi"
                 cpu: "250m"
           volumes:
-          - name: app-updater
+          - name: {{ template "app-updater.fullname" . }}
             configMap:
-              name: app-updater
+              name: {{ template "app-updater.fullname" . }}
