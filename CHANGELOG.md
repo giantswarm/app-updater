@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2021-07-26
+
 ### Changed
 
 - Set CronJob parallelism to run only one container at once
@@ -24,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
-[Unreleased]: https://github.com/giantswarm/app-updater-app/tree/master
+[Unreleased]: https://github.com/giantswarm/app-updater/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/giantswarm/app-updater/releases/tag/v0.3.0
 [0.2.0]: https://github.com/giantswarm/loki-app/releases/tag/v0.2.0
 [0.1.0]: https://github.com/giantswarm/loki-app/releases/tag/v0.1.0
