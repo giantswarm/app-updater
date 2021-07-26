@@ -6,9 +6,11 @@ metadata:
     app:  {{ template "app-updater.fullname" . }}
 spec:
   schedule: {{ .Values.schedule | quote }}
+  concurrencyPolicy: Replace
   jobTemplate:
     spec:
       backoffLimit: 3
+      parallelism: 1
       ttlSecondsAfterFinished: 600
       template:
         spec:
