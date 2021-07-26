@@ -1,11 +1,11 @@
-FROM alpine:3.12
+FROM quay.io/giantswarm/alpine:3.14.0
 
-RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
-
-RUN apk update && apk add --no-cache bash curl jq
+RUN apk add --no-cache bash curl jq
 
 WORKDIR /opt/script
 
-RUN chmod +x /opt/script
+RUN addgroup -g 1000 -S giantswarm && adduser -u 1000 -S giantswarm -G giantswarm
+
+USER giantswarm
 
 ENTRYPOINT ["/bin/bash"]

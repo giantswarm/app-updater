@@ -7,4 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/giantswarm/REPOSITORY_NAME/tree/master
+### Changed
+
+- Set CronJob parallelism to run only one container at once
+- Make Kubernetes replace running Job containers at each schedule occurence
+- Move update script into the CronJob spec
+- Use Giant Swarm retagged base container images
+
+## [0.2.0] - 2021-04-29
+
+### Changed
+
+- Use name from template for all resources
+
+## [0.1.0] - 2020-12-01
+
+Initial release
+
+[Unreleased]: https://github.com/giantswarm/app-updater-app/tree/master
+[0.2.0]: https://github.com/giantswarm/loki-app/releases/tag/v0.2.0
+[0.1.0]: https://github.com/giantswarm/loki-app/releases/tag/v0.1.0

@@ -7,14 +7,19 @@ metadata:
 spec:
   allowPrivilegeEscalation: false
   fsGroup:
-    rule: RunAsAny
+    rule: MustRunAs
+    ranges:
+      - min: 1000
+        max: 1000
   runAsUser:
-    rule: RunAsAny
+    rule: MustRunAsNonRoot
   seLinux:
     rule: RunAsAny
   supplementalGroups:
-    rule: RunAsAny
+    rule: MustRunAs
+    ranges:
+      - min: 1000
+        max: 1000
   volumes:
   - secret
   - downwardAPI
-  - configMap

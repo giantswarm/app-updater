@@ -14,21 +14,43 @@ spec:
       ttlSecondsAfterFinished: 600
       template:
         spec:
-          serviceAccount: {{ template "app-updater.fullname" . }}
+          serviceAccountName: {{ template "app-updater.fullname" . }}
           restartPolicy: Never
           containers:
           - image: "quay.io/giantswarm/app-updater:{{ .Values.image.version }}"
             name: {{ template "app-updater.fullname" . }}
-            args: ["/opt/script/script.sh"]
+            command:
+            - /bin/bash
+            - -c
+            args:
+            - |
+              export KUBE_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+              export DSOURCE=$(curl -sSk -H "Authorization: Bearer $KUBE_TOKEN"  https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/apis/application.giantswarm.io/v1alpha1/namespaces/{{ .Values.clusterID }}/apps/$APP_NAME | jq .spec.version -r)
+
+              export DTARGET=$(curl --silent "https://api.github.com/repos/$APP_REPO/releases/latest"  | jq -r .tag_name | sed 's/^v//')
+
+              echo "- Repo: " $APP_REPO
+              echo "- App: " $APP_NAME
+              echo "- Version running: " $DSOURCE
+              echo "- Last version released: " $DTARGET
+
+              rx='^([0-9]+\.){0,2}(\*|[0-9]+)$'
+              if [[ $DSOURCE != $DTARGET ]] && [[ $DTARGET =~ $rx ]]; then
+                  echo "App needs to be upgraded, proceeding to update App CR version field"
+                  curl -sSk -o /dev/null -w "%{http_code} " \
+                    -H "Authorization: Bearer $KUBE_TOKEN" \
+                    -H "Content-Type: application/json-patch+json" \
+                    -X PATCH https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/apis/application.giantswarm.io/v1alpha1/namespaces/{{ .Values.clusterID }}/apps/$APP_NAME \
+                    --data "[{\"op\":\"replace\",\"path\":\"/spec/version\",\"value\":\"$DTARGET\"}]"
+              else
+                  echo "App does not need to be upgraded"
+              fi
             env:
             - name: APP_REPO
               value: {{ .Values.app_repo }}
             - name: APP_NAME
               value: {{ .Values.app_name }}
-            volumeMounts:
-            - mountPath: /opt/script
-              name: {{ template "app-updater.fullname" . }}
-              readOnly: false
             resources:
               requests:
                 memory: "64Mi"
@@ -36,7 +58,7 @@ spec:
               limits:
                 memory: "64Mi"
                 cpu: "250m"
-          volumes:
-          - name: {{ template "app-updater.fullname" . }}
-            configMap:
-              name: {{ template "app-updater.fullname" . }}
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              readOnlyRootFilesystem: true
