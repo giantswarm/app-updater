@@ -1,4 +1,4 @@
-FROM quay.io/giantswarm/alpine:3.14.0
+FROM quay.io/giantswarm/alpine:3.16.1
 
 RUN apk add --no-cache bash curl jq
 
