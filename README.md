@@ -1,6 +1,9 @@
 [![Docker Repository on Quay](https://quay.io/repository/giantswarm/app-updater/status "Docker Repository on Quay")](https://quay.io/repository/giantswarm/app-updater)
 [![CircleCI](https://circleci.com/gh/giantswarm/app-updater.svg?style=shield)](https://circleci.com/gh/giantswarm/app-updater)
 
+# This application is no longer maintained!
+Consider using [flux](https://github.com/giantswarm/flux-app) instead.
+
 # app-updater-app chart
 
 Giant Swarm offers an App Updater which can be installed in clusters to update App Platform apps when there is a new version.
